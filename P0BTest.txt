@@ -1,0 +1,104 @@
+@IsTest
+public class P0BTest {
+		 
+    //Testing the fibonacci method
+    @IsTest
+    public static void nFibonacciTest(){
+        //P0B Fib = new P0B();
+        Integer result = P0B.nFibonacci(0);
+        system.assertEquals(0, result);
+        result = P0B.nFibonacci(1);
+        system.assertEquals(1,result);
+        result = P0B.nFibonacci(2);
+        system.assertEquals(1, result);
+        result = P0B.nFibonacci(10);
+        system.assertEquals(55,result);
+    } 
+    
+    //Testing the sorting method
+    @IsTest   
+    public static void sortArrayTest(){
+        //List to be tested
+        List<Integer> intList = new List<Integer>{2,4,5,1,3,1};
+        //The expected output
+        List<Integer> theCorrect = new List<Integer>{1,1,2,3,4,5}; 
+        //store the result here    
+        List<Integer> output = new Integer[6];
+        output = P0B.sortArray(intList);
+        system.assertEquals(theCorrect, output);
+        
+        //List to be tested
+       //List to be tested
+        List<Integer> intList2 = new List<Integer>{5,4,3,2,1};
+        //The expected output
+        List<Integer> theCorrect2 = new List<Integer>{1,2,3,4,5}; 
+        //store the result here    
+        List<Integer> output2 = new Integer[5];
+        output2 = P0B.sortArray(intList2);
+        system.assertEquals(theCorrect2, output2);
+        }
+    
+     @IsTest   
+    public static void nFactorialTest(){
+        Integer result = P0B.nFactorial(0);
+        system.assertEquals(1, result);
+        result = P0B.nFactorial(1);
+        system.assertEquals(1,result);
+        result = P0B.nFactorial(3);
+        system.assertEquals(6, result);
+        
+        }
+    
+     @IsTest   
+    public static void rotateLeftnTimesTest(){
+    	/*First Test*/
+        //List to be tested
+        List<Integer> intList = new List<Integer>{1,2,3,4,5};
+        //The expected output
+        List<Integer> theCorrect = new List<Integer>{2,3,4,5,1}; 
+        //store the result here    
+        List<Integer> output = new Integer[5];
+        //Call method in class P0B
+        output = P0B.rotateLeftNTimes(intList, 1);
+        system.assertEquals(theCorrect,output);
+        /*Second Test*/
+        //store the result here    
+        List<Integer> output2 = new Integer[5];
+        //Call method in class P0B
+        output = P0B.rotateLeftNTimes(intList, 6);
+        system.assertEquals(theCorrect,output);
+        /*Third Test*/
+            
+        //The expected output
+        List<Integer> theCorrect3 = new List<Integer>{4,5,1,2,3}; 
+        //store the result here    
+        List<Integer> output3 = new Integer[5];
+        //Call method in class P0B
+        output3 = P0B.rotateLeftNTimes(intList, 3);
+        system.assertEquals(theCorrect,output);
+    }
+    
+    @IsTest
+    public static void bracketsAreBalancedTest(){
+		Boolean result ;
+        //Testing all the trues
+        result = P0B.bracketsAreBalanced('()');
+        system.assertEquals(True, result);
+        result = P0B.bracketsAreBalanced('()()');
+        system.assertEquals(True, result);
+        result = P0B.bracketsAreBalanced('(())');
+        system.assertEquals(True, result);
+        result = P0B.bracketsAreBalanced('({[]})');
+        system.assertEquals(True, result);
+        
+        //Testing all the false
+        result = P0B.bracketsAreBalanced('(');
+        system.assertEquals(False, result);
+        result = P0B.bracketsAreBalanced(')');
+        system.assertEquals(False, result);
+        result = P0B.bracketsAreBalanced('(()');
+        system.assertEquals(False, result);
+        result = P0B.bracketsAreBalanced('([)]');
+        system.assertEquals(False, result);
+    }
+}
