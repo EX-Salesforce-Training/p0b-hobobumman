@@ -1,0 +1,174 @@
+public class P0B {
+
+    //public P0B(){}
+    //Return the nth Fibonacci number
+    public static Integer nFibonacci(integer n){
+        integer previous = 0; //a_{n-2}
+        integer current = 1; //a_{n-2}
+        integer next; //a_n
+        //Automatically print zero if they want the zeroth term
+        if(n == 0){
+            next = 0;
+        //Automatically print one if they want the first term
+        }else if(n==1){
+            next =1;
+        }
+        else{
+        //Add  the two previous numbers in the sequence to get the next one
+        for(integer i=1; i < n ; i++){
+            next  = current + previous;
+            previous = current;
+            current = next;
+            
+        }}
+        
+       
+        return next;
+    }
+    
+   	//sorting algorithm
+   	
+    public static Integer[] sortArray(Integer[] intList){
+        integer n = intList.size();
+        List<Integer> tempArray = new Integer[n];
+        tempArray = intList; 
+        integer minimum; 
+        //Bubble sort, the barbaric way.
+        for(integer j = 0; j <1+n; j++){
+        //Compare two items in the list sequentially. move the lesser one to the left.
+        for(integer i = 0; i<n-1;i++){
+            minimum = intList[i];
+            //Comparison occurs here
+            if(minimum > intList[i+1]){
+                //If the left is greater than the right, swap.
+                tempArray[i] = intlist[i+1];
+                tempArray[i+1] = minimum;                 
+            }
+        }}
+         
+        return tempArray; 
+    }
+   
+    //calculate n-factorial
+    public static Integer nFactorial(Integer n){
+        Integer product=1; 
+        //Automatically return 1 if user wants 0!
+        if(n == 0){
+            product = 1; 
+        } //multiply the numbers sequentially until the largest number is reached. 
+        else{
+            for(integer i=1; i <= n ; i++){
+            
+            product = product*i;
+        }    
+        }
+        
+        return product;
+    }
+    
+   //Rotate left
+    public static Integer[] rotateLeftNTimes(Integer[] intarray, Integer n){
+        List<Integer> temparray = new Integer[5];
+         
+        integer store; integer tempo;
+        integer len = intarray.size();
+        //check for rotation larger than length of list
+        if(n > len){
+            //change rotation to its equivalent that is less than the length of the list
+            n = math.mod(n, len);
+        }//For loop starts at the end of the list and works backwards.
+        for(integer i =len-1; i>=0;i--){
+            store = intarray[i]; 
+            if(i-n>=0){
+            //Shift the current number to the left n spaces. 
+            	temparray[i-n]= store;
+            }else{ 
+                //Shift the current number from the end of the list (n-i) spaces. 
+                //This occurs when there is not enough room to move left from the current position.
+                //Wraps around.
+                temparray[len-(n-i)]=store;
+            }
+        }
+        
+        return tempArray;
+    }
+    
+    public static Boolean bracketsAreBalanced(String s){
+        Boolean balanced = True;
+        //Remove spaces
+		s = s.replace(' ','');
+        
+        //get the length and half the length
+        integer n = s.length();
+		integer half = n/2;
+        //If it's not even, then it can't be balanced. 
+        if(math.mod(n, 2) !=0){
+            balanced = False;
+        }
+		string firsthalf = s.substring(0,half);
+        //check if it's not already symmetric like '()()'
+        if(firsthalf.equals(s.substring(half))){
+            balanced = True;
+        }else{
+        string theReverse = s.reverse();
+        theReverse = theReverse.substring(0,half);
+        
+        
+			//Reverse the direction of each parenthesis, bracket, brace in the mirror
+			theReverse = theReverse.replace(')','(');
+			theReverse = theReverse.replace(']','[');
+			theReverse = theReverse.replace('}','{');
+			//If not symmetric, it can't be balanced
+        	if(!theReverse.equals(firsthalf)){
+            	balanced = False;
+            }}
+        return balanced;
+    }
+    
+    /*retrieves a list of all accounts and updates those accounts.
+* Create a custom field on the Account standard object called Size__c that will be a
+* picklist containing small/medium/large.*/
+    public static void updateAccountSize(){
+        List<Account> myAccs = [SELECT NumberofEmployees FROM Account ];
+        Integer len = myAccs.size(); 
+        for(Integer i = 0; i<len; i++){
+            if( myAccs[i].NumberofEmployees >0 && myAccs[i].NumberofEmployees <= 1000  ){
+                myAccs[i].Size__c = 'small';
+            }else if(myAccs[i].NumberofEmployees >1000 && myAccs[i].numberofEmployees <= 10000){
+                myAccs[i].Size__c = 'medium';
+            }else{
+                myAccs[i].Size__c = 'Large';
+            }   
+    } //close for loop
+        update myAccs;
+}//close updateAccountSize method
+    
+    /*find all leads that contain 'ca' in their fields.
+* If a lead is located in California(CA), change their Lead Status field to 'Closed - Not
+* Converted' and their description should display the message, "We are no longer doing
+* business in California."
+*/
+    public static void updateCALeads(){
+        List<Lead> myLeads = [SELECT Address, Status FROM Lead];
+     	//integer len = myLeads.size();
+        for(Lead thisLead : myLeads){
+            if(thisLead.Address.getstate() == 'CA' ){
+                thisLead.Status = 'Closed - Not Converted';
+                thisLead.Description = 'We are no longer doing business in California.';
+            }//close if statement
+        }//close for loop
+        update myLeads;
+    }//close updateCALeads
+    
+    public static void closePastDueOpportunites(){
+        List<Opportunity> myOpps = [SELECT CloseDate, StageName FROM Opportunity ];
+    	
+        for(Opportunity thisOpp: myOpps){
+            if(thisOpp.CloseDate > system.today() && !(thisOpp.StageName == 'Closed Won')){
+                thisOpp.StageName = 'Closed Lost';
+            }//close if
+        }//close for loop
+        update myOpps;
+    }//close closePastDueOpportunities method
+    
+}//close class
